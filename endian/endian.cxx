@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#if 0
+#if 1
 #    if defined(__GLIBC__) || defined(__OpenBSD__)
       /* POSIX header. Available on Linux, FreeBSD, but not MacOS.
        */
