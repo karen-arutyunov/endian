@@ -1,6 +1,8 @@
+/*
 #undef __BYTE_ORDER__
 #undef __ORDER_BIG_ENDIAN___
 #undef __ORDER_LITTLE_ENDIAN__
+*/
 
 #if 1
 #    if defined(__GLIBC__) || defined(__OpenBSD__)
