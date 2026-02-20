@@ -1,12 +1,14 @@
+#include <endian.h>
+
 int main ()
 {
-#if !defined(__BYTE_ORDER__) || !defined(__ORDER_BIG_ENDIAN__) || !defined(__ORDER_LITTLE_ENDIAN__)
+#if !defined(BYTE_ORDER) || !defined(BIG_ENDIAN) || !defined(LITTLE_ENDIAN)
   return 3;
 #endif
 
-#if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
+#if BYTE_ORDER == LITTLE_ENDIAN
   return 0;
-#elif __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
+#elif BYTE_ORDER == BIG_ENDIAN
   return 1;
 #else
   return 2;
