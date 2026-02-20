@@ -1,10 +1,12 @@
-#include <machine/endian.h>
+#include <sys/endian.h>
 
 //
 // <endian.h> - POSIX header which, in particular, defines BYTE_ORDER,
 //              BIG_ENDIAN, and LITTLE_ENDIAN. Available on Linux, FreeBSD,
 //              but not on MacOS.
-
+//
+// <machine/endian.h> - not a POSIX header. Typically available on BSD-derived
+//                      systems, in particular, on FreeBSD and MacOS.
 
 int main ()
 {
