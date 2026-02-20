@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 #    if defined(__GLIBC__) || defined(__OpenBSD__)
       /* POSIX header. Available on Linux, FreeBSD, but not MacOS.
        */
@@ -30,6 +32,11 @@ int main ()
      r += 2;
 #  else
      r += 3;
+
+     printf ("BYTE_ORDER %d, "
+             "LITTLE_ENDIAN %d, "
+             "BIG_ENDIAN %d\n",
+             BYTE_ORDER, LITTLE_ENDIAN, BIG_ENDIAN);
 #  endif
 #endif
 
@@ -40,6 +47,11 @@ int main ()
      r += 20;
 #  else
      r += 30;
+
+     printf ("__BYTE_ORDER %d, "
+             "__LITTLE_ENDIAN %d, "
+             "__BIG_ENDIAN %d\n",
+             __BYTE_ORDER, __LITTLE_ENDIAN, __BIG_ENDIAN);
 #  endif
 #endif
 
@@ -50,6 +62,11 @@ int main ()
      r += 200;
 #  else
      r += 300;
+
+     printf ("_BYTE_ORDER %d, "
+             "_LITTLE_ENDIAN %d, "
+             "_BIG_ENDIAN %d\n",
+             _BYTE_ORDER, _LITTLE_ENDIAN, _BIG_ENDIAN);
 #  endif
 #endif
 
@@ -60,6 +77,11 @@ int main ()
      r += 2000;
 #  else
      r += 3000;
+
+     printf ("__DARWIN_BYTE_ORDER %d, "
+             "__DARWIN_LITTLE_ENDIAN %d, "
+             "__DARWIN_BIG_ENDIAN %d\n",
+             __DARWIN_BYTE_ORDER, __DARWIN_LITTLE_ENDIAN, __DARWIN_BIG_ENDIAN);
 #  endif
 #endif
 
@@ -70,8 +92,14 @@ int main ()
      r += 20000;
 #  else
      r += 30000;
+
+     printf ("__BYTE_ORDER__ %d, "
+             "__LITTLE_ENDIAN__ %d, "
+             "__BIG_ENDIAN__ %d\n",
+             __BYTE_ORDER__, __LITTLE_ENDIAN__, __BIG_ENDIAN__);
 #  endif
 #endif
 
-  return r;
+  printf ("RESULT: %d\n", r);
+  return 0;
 }
