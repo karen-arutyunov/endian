@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+#if 0
 #    if defined(__GLIBC__) || defined(__OpenBSD__)
       /* POSIX header. Available on Linux, FreeBSD, but not MacOS.
        */
@@ -20,6 +21,7 @@
         */
 #      include <sys/param.h>
 #    endif
+#endif
 
 int main ()
 {
@@ -85,18 +87,18 @@ int main ()
 #  endif
 #endif
 
-#if defined(__BYTE_ORDER__) && defined(__BIG_ENDIAN__) && defined(__LITTLE_ENDIAN__)
-#  if __BYTE_ORDER__ == __LITTLE_ENDIAN__
+#if defined(__BYTE_ORDER__) && defined(__ORDER_BIG_ENDIAN__) && defined(__ORDER_LITTLE_ENDIAN__)
+#  if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
      r += 10000;
-#  elif __BYTE_ORDER__ == __BIG_ENDIAN__
+#  elif __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
      r += 20000;
 #  else
      r += 30000;
 
      printf ("__BYTE_ORDER__ %d, "
-             "__LITTLE_ENDIAN__ %d, "
-             "__BIG_ENDIAN__ %d\n",
-             __BYTE_ORDER__, __LITTLE_ENDIAN__, __BIG_ENDIAN__);
+             "__ORDER_LITTLE_ENDIAN__ %d, "
+             "__ORDER_BIG_ENDIAN__ %d\n",
+             __BYTE_ORDER__, __ORDER_LITTLE_ENDIAN__, __ORDER_BIG_ENDIAN__);
 #  endif
 #endif
 
