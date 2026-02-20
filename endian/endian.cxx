@@ -1,8 +1,6 @@
-#include <stdio.h>
-
 #undef __BYTE_ORDER__
 #undef __ORDER_BIG_ENDIAN___
-#undef _ORDER_LITTLE_ENDIAN__
+#undef __ORDER_LITTLE_ENDIAN__
 
 #if 1
 #    if defined(__GLIBC__) || defined(__OpenBSD__)
@@ -27,7 +25,8 @@
 #    endif
 #endif
 
-int main ()
+static int
+test ()
 {
   int r (0);
 
@@ -39,10 +38,12 @@ int main ()
 #  else
      r += 3;
 
+     /*
      printf ("BYTE_ORDER %d, "
              "LITTLE_ENDIAN %d, "
              "BIG_ENDIAN %d\n",
              BYTE_ORDER, LITTLE_ENDIAN, BIG_ENDIAN);
+     */
 #  endif
 #endif
 
@@ -54,10 +55,12 @@ int main ()
 #  else
      r += 30;
 
+     /*
      printf ("__BYTE_ORDER %d, "
              "__LITTLE_ENDIAN %d, "
              "__BIG_ENDIAN %d\n",
              __BYTE_ORDER, __LITTLE_ENDIAN, __BIG_ENDIAN);
+     */
 #  endif
 #endif
 
@@ -69,10 +72,12 @@ int main ()
 #  else
      r += 300;
 
+     /*
      printf ("_BYTE_ORDER %d, "
              "_LITTLE_ENDIAN %d, "
              "_BIG_ENDIAN %d\n",
              _BYTE_ORDER, _LITTLE_ENDIAN, _BIG_ENDIAN);
+     */
 #  endif
 #endif
 
@@ -84,10 +89,12 @@ int main ()
 #  else
      r += 3000;
 
+     /*
      printf ("__DARWIN_BYTE_ORDER %d, "
              "__DARWIN_LITTLE_ENDIAN %d, "
              "__DARWIN_BIG_ENDIAN %d\n",
              __DARWIN_BYTE_ORDER, __DARWIN_LITTLE_ENDIAN, __DARWIN_BIG_ENDIAN);
+     */
 #  endif
 #endif
 
@@ -99,13 +106,22 @@ int main ()
 #  else
      r += 30000;
 
+     /*
      printf ("__BYTE_ORDER__ %d, "
              "__ORDER_LITTLE_ENDIAN__ %d, "
              "__ORDER_BIG_ENDIAN__ %d\n",
              __BYTE_ORDER__, __ORDER_LITTLE_ENDIAN__, __ORDER_BIG_ENDIAN__);
+     */
 #  endif
 #endif
 
-  printf ("RESULT: %d\n", r);
+  return r;
+}
+
+#include <stdio.h>
+
+int main ()
+{
+  printf ("RESULT: %d\n", test ());
   return 0;
 }
