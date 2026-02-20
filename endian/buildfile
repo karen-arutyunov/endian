@@ -4,3 +4,9 @@ libs =
 exe{endian}: {hxx ixx txx cxx}{**} $libs testscript
 
 cxx.poptions =+ "-I$out_root" "-I$src_root"
+
+cxx.coptions =+ -D_ANSI_SOURCE
+
+# _POSIX_C_SOURCE
+# _XOPEN_SOURCE
+# _NETBSD_SOURCE

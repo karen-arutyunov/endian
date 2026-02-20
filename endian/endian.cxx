@@ -1,27 +1,77 @@
-#include <sys/param.h>
+#    if defined(__GLIBC__) || defined(__OpenBSD__)
+      /* POSIX header. Available on Linux, FreeBSD, but not MacOS.
+       */
+#      include <endian.h>
+#    elif defined(__FreeBSD__) || defined(__NetBSD__)
+       /* Not a POSIX header. Typically available on BSD-derived systems, in
+        * particular, on FreeBSD but not MacOS.
+        */
+#      include <sys/endian.h>
+#    elif defined(__APPLE__)
+       /* Not a POSIX header. Typically available on BSD-derived systems, in
+        * particular, on FreeBSD and MacOS.
+        */
+#      include <machine/endian.h>
+#    elif !defined(_WIN32)
+       /* Not a POSIX header. Historically available on POSIX systems, in
+        * particular, on Linux, FreeBSD, and MacOS.
+        */
+#      include <sys/param.h>
+#    endif
 
-//
-// <endian.h> - POSIX header which, in particular, defines BYTE_ORDER,
-//              BIG_ENDIAN, and LITTLE_ENDIAN. Available on Linux, FreeBSD,
-//              but not MacOS.
-//
-// <machine/endian.h> - not a POSIX header. Typically available on BSD-derived
-//                      systems, in particular, on FreeBSD and MacOS.
-//
-// <sys/endian.h>     - not a POSIX header. Typically available on BSD-derived
-//                      systems, in particular, on FreeBSD but not MacOS.
-//
 int main ()
 {
-#if !defined(BYTE_ORDER) || !defined(BIG_ENDIAN) || !defined(LITTLE_ENDIAN)
-  return 3;
+  int r (0);
+
+#if defined(BYTE_ORDER) && defined(BIG_ENDIAN) && defined(LITTLE_ENDIAN)
+#  if BYTE_ORDER == LITTLE_ENDIAN
+     r += 1;
+#  elif BYTE_ORDER == BIG_ENDIAN
+     r += 2;
+#  else
+     r += 3;
+#  endif
 #endif
 
-#if BYTE_ORDER == LITTLE_ENDIAN
-  return 0;
-#elif BYTE_ORDER == BIG_ENDIAN
-  return 1;
-#else
-  return 2;
+#if defined(__BYTE_ORDER) && defined(__BIG_ENDIAN) && defined(__LITTLE_ENDIAN)
+#  if __BYTE_ORDER == __LITTLE_ENDIAN
+     r += 10;
+#  elif __BYTE_ORDER == __BIG_ENDIAN
+     r += 20;
+#  else
+     r += 30;
+#  endif
 #endif
+
+#if defined(_BYTE_ORDER) && defined(_BIG_ENDIAN) && defined(_LITTLE_ENDIAN)
+#  if _BYTE_ORDER == _LITTLE_ENDIAN
+     r += 100;
+#  elif _BYTE_ORDER == _BIG_ENDIAN
+     r += 200;
+#  else
+     r += 300;
+#  endif
+#endif
+
+#if defined(__DARWIN_BYTE_ORDER) && defined(__DARWIN_BIG_ENDIAN) && defined(__DARWIN_LITTLE_ENDIAN)
+#  if __DARWIN_BYTE_ORDER == __DARWIN_LITTLE_ENDIAN
+     r += 1000;
+#  elif __DARWIN_BYTE_ORDER == __DARWIN_BIG_ENDIAN
+     r += 2000;
+#  else
+     r += 3000;
+#  endif
+#endif
+
+#if defined(__BYTE_ORDER__) && defined(__BIG_ENDIAN__) && defined(__LITTLE_ENDIAN__)
+#  if __BYTE_ORDER__ == __LITTLE_ENDIAN__
+     r += 10000;
+#  elif __BYTE_ORDER__ == __BIG_ENDIAN__
+     r += 20000;
+#  else
+     r += 30000;
+#  endif
+#endif
+
+  return r;
 }
